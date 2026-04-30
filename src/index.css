@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Bento+Sans:wght@400;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Plus Jakarta Sans", sans-serif;
+  
+  --color-brand-primary: #F97316; /* Precision Orange */
+  --color-brand-secondary: #0EA5E9; /* Ocean Blue */
+  --color-brand-accent: #64748B; /* Industrial Steel */
+  
+  --shadow-premium: 0 10px 40px -10px rgba(0, 0, 0, 0.08), 0 5px 20px -5px rgba(0, 0, 0, 0.04);
+  --shadow-huge: 0 40px 100px -20px rgba(0, 0, 0, 0.12), 0 20px 40px -10px rgba(0, 0, 0, 0.08);
+}
+
+@layer base {
+  body {
+    @apply bg-[#F8FAFC] text-slate-900 antialiased font-sans transition-colors duration-500;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white/60 backdrop-blur-xl border border-white/40 shadow-premium;
+  }
+  
+  .glass-industrial {
+    @apply bg-slate-100/40 backdrop-blur-2xl border border-slate-200/50 shadow-huge;
+  }
+
+  .machinery-gradient {
+    @apply bg-linear-to-br from-orange-500 via-orange-600 to-amber-600;
+  }
+  
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-linear-to-r from-orange-600 to-orange-400;
+  }
+
+  .text-ocean {
+    @apply bg-clip-text text-transparent bg-linear-to-r from-sky-600 to-indigo-500;
+  }
+  
+  .btn-premium {
+    @apply px-8 py-4 rounded-2xl font-bold transition-all duration-500 transform hover:-translate-y-1.5 active:translate-y-0 shadow-[0_15px_30px_-10px_rgba(249,115,22,0.3)] hover:shadow-[0_25px_50px_-12px_rgba(249,115,22,0.4)];
+  }
+  
+  .threed-hover {
+    @apply transition-all duration-700 hover:[transform:perspective(1500px)_rotateX(5deg)_rotateY(-5deg)_scale(1.03)] hover:shadow-huge;
+  }
+
+  .perspective-1000 {
+    perspective: 1500px;
+  }
+
+  .animate-float {
+    animation: float 8s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0); }
+    50% { transform: translateY(-30px) rotate(1deg); }
+  }
+
+  .animate-spin-slow {
+    animation: spin 20s linear infinite;
+  }
+  
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .animate-gradient-x {
+    background-size: 200% 200%;
+    animation: gradient-x 15s ease infinite;
+  }
+
+  @keyframes gradient-x {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+}

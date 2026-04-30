@@ -1,0 +1,191 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Core user authentication record",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "avatar": { "type": "string" },
+        "role": { "type": "string", "enum": ["user", "admin"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "lastSignInAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["email", "role"]
+    },
+    "Profile": {
+      "title": "Profile",
+      "description": "Extended user profile information",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "userType": { "type": "string", "enum": ["business", "investor", "admin"] },
+        "phone": { "type": "string" },
+        "companyName": { "type": "string" },
+        "businessType": { "type": "string" },
+        "location": { "type": "string" },
+        "city": { "type": "string" },
+        "state": { "type": "string" },
+        "gstNumber": { "type": "string" },
+        "panNumber": { "type": "string" },
+        "description": { "type": "string" },
+        "verified": { "type": "boolean" },
+        "totalDeals": { "type": "number" },
+        "totalInvested": { "type": "number" },
+        "totalEarned": { "type": "number" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "userType"]
+    },
+    "KYCVerification": {
+      "title": "KYC Verification",
+      "description": "User KYC documentation and verification status",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "panNumber": { "type": "string" },
+        "panVerified": { "type": "boolean" },
+        "gstNumber": { "type": "string" },
+        "gstVerified": { "type": "boolean" },
+        "phone": { "type": "string" },
+        "phoneVerified": { "type": "boolean" },
+        "businessName": { "type": "string" },
+        "businessAddress": { "type": "string" },
+        "bankAccountName": { "type": "string" },
+        "bankAccountNumber": { "type": "string" },
+        "ifscCode": { "type": "string" },
+        "documents": { "type": "array", "items": { "type": "string" } },
+        "status": { "type": "string", "enum": ["pending", "under_review", "verified", "rejected"] },
+        "rejectionReason": { "type": "string" },
+        "verifiedAt": { "type": "string", "format": "date-time" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "status"]
+    },
+    "Machine": {
+      "title": "Machine",
+      "description": "Catalog of eligible machines",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "category": { "type": "string" },
+        "description": { "type": "string" },
+        "specifications": { "type": "object" },
+        "typicalCostMin": { "type": "number" },
+        "typicalCostMax": { "type": "number" },
+        "revenuePotentialMin": { "type": "number" },
+        "revenuePotentialMax": { "type": "number" },
+        "riskLevel": { "type": "string", "enum": ["low", "medium", "high"] },
+        "imageUrl": { "type": "string" },
+        "active": { "type": "boolean" }
+      },
+      "required": ["name", "category", "active"]
+    },
+    "Deal": {
+      "title": "Deal",
+      "description": "A financing opportunity for a specific machine",
+      "type": "object",
+      "properties": {
+        "businessId": { "type": "string" },
+        "machineId": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "status": { "type": "string" },
+        "machineCost": { "type": "number" },
+        "totalInvestmentNeeded": { "type": "number" },
+        "minInvestment": { "type": "number" },
+        "investorShare": { "type": "number" },
+        "fundedAmount": { "type": "number" },
+        "investorsCount": { "type": "number" },
+        "riskCategory": { "type": "string", "enum": ["low", "medium", "high"] },
+        "targetReturnMin": { "type": "number" },
+        "targetReturnMax": { "type": "number" },
+        "durationMonths": { "type": "integer" },
+        "location": { "type": "string" },
+        "aiRiskScore": { "type": "number" },
+        "aiInsights": { "type": "string" },
+        "pilotDeal": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["businessId", "machineId", "title", "totalInvestmentNeeded", "status"]
+    },
+    "Investment": {
+      "title": "Investment",
+      "description": "Record of an investor's stake in a deal",
+      "type": "object",
+      "properties": {
+        "investorId": { "type": "string" },
+        "dealId": { "type": "string" },
+        "amount": { "type": "number" },
+        "status": { "type": "string" },
+        "totalReturned": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["investorId", "dealId", "amount", "status"]
+    },
+    "RevenueReport": {
+      "title": "Revenue Report",
+      "description": "Monthly performance report for a deal",
+      "type": "object",
+      "properties": {
+        "dealId": { "type": "string" },
+        "reportingMonth": { "type": "string" },
+        "grossRevenue": { "type": "number" },
+        "netProfit": { "type": "number" },
+        "proofUrl": { "type": "string" },
+        "verified": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["dealId", "reportingMonth", "grossRevenue", "netProfit"]
+    },
+    "Waitlist": {
+      "title": "Waitlist",
+      "description": "Early access signups",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" },
+        "name": { "type": "string" },
+        "phone": { "type": "string" },
+        "userType": { "type": "string" },
+        "city": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["email", "name"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User authentication and basic info"
+    },
+    "/profiles/{userId}": {
+      "schema": "Profile",
+      "description": "Extended user profiles"
+    },
+    "/kycVerifications/{userId}": {
+      "schema": "KYCVerification",
+      "description": "KYC documents and status for users"
+    },
+    "/machines/{machineId}": {
+      "schema": "Machine",
+      "description": "Available machine types"
+    },
+    "/deals/{dealId}": {
+      "schema": "Deal",
+      "description": "Active and funded machine deals"
+    },
+    "/investments/{investmentId}": {
+      "schema": "Investment",
+      "description": "Investor stakes in deals"
+    },
+    "/revenueReports/{reportId}": {
+      "schema": "RevenueReport",
+      "description": "Monthly business revenue reports"
+    },
+    "/waitlist/{waitlistId}": {
+      "schema": "Waitlist",
+      "description": "Pre-launch signup waitlist"
+    }
+  }
+}
